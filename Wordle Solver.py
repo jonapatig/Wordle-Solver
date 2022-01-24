@@ -39,8 +39,12 @@ def findgood2():
             better.append(i)
         if len(better) > 10:
             good2 = [better[0], better[1], better[2], better[3], better[4], better[5], better[6], better[7], better[8], better[9]]
+            # good2 = [better[-1], better[-2], better[-3], better[-4], better[-5], better[-6], better[-7], better[-8], better[-9], better[-10]]
         else:
-            good2 = better
+            if not better:
+                good2 = ['No more words without duplicate letters']
+            else:
+                good2 = reversed(better)
     return good2
 
 def findgood3():
@@ -212,12 +216,7 @@ def main():
             for i in deleters:
                 possible.remove(i)
     print('\nIncluding double letter words: ', findgood())
-    # print('No double letter words: ', findgood2())
-
-    global solved
-
-    print("Solved?")
-    solved = input()
+    print('\nNo duplicate letter words: ', findgood2())
 
 
 #_______________________________________________________________________________
@@ -231,5 +230,8 @@ print('\nGood starters excluding any duplicate letters: ', findgood2())
 print('\nGood starter optimized for vowels: ', findgood3())
 while True:
     main()
+    print('\nChance of success: ', (1/len(possible))*100,'%')
+    print("Solved?")
+    solved = input()
     if solved == 'yes':
         exit()
