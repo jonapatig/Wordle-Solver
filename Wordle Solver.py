@@ -27,6 +27,7 @@ def findgood():
     else:
         good = possible
     return good
+
 def findgood2():
     better = []
     for i in reversed(possible):
@@ -42,13 +43,40 @@ def findgood2():
             good2 = better
     return good2
 
+def findgood3():
+    global possible
+    possible2 = possible
+    vowelpoints = []
+    for i in possible2:
+        points = 0
+        vowellist = ['a','e','i','o','u']
+        for a in i:
+            if a in vowellist:
+                points += 1
+                vowellist.remove(a)
+        vowelpoints.append(points)
+    for x in range(0,len(vowelpoints)):
+        for i in range(0,(len(vowelpoints)-x)):
+            if not i == (len(vowelpoints)-1) and vowelpoints[i] > vowelpoints[i+1]:
+                temp = vowelpoints[i+1]
+                temp2 = possible2[i+1]
+                vowelpoints[i+1] = vowelpoints[i]
+                possible2[i+1] = possible2[i]
+                vowelpoints[i] = temp
+                possible2[i] = temp2
+    if len(possible2) > 10:
+        good3 = [possible2[-1], possible2[-2], possible2[-3], possible2[-4], possible2[-5], possible2[-6], possible2[-7], possible2[-8], possible2[-9], possible2[-10]]
+    else:
+        good3 = reversed(possible2)
+    return good3
+
 def bubblesortpossible():
     sortedweights = []
     for i in possible:
         weight = counts0[i[0]] + counts1[i[1]] + counts2[i[2]] + counts3[i[3]] + counts4[i[4]]
         sortedweights.append(weight)
     for x in range(0,len(sortedweights)):
-        for i in range(0,len(sortedweights)):
+        for i in range(0,(len(sortedweights)-x)):
             if not i == (len(sortedweights)-1) and sortedweights[i] > sortedweights[i+1]:
                 temp = sortedweights[i+1]
                 temp2 = possible[i+1]
@@ -57,12 +85,11 @@ def bubblesortpossible():
                 sortedweights[i] = temp
                 possible[i] = temp2
 
-
 def main():
     global possible
     yellows = []
 
-    yellow = input("Input yellow and green letters (press enter if there are none): ")
+    yellow = input("\nInput yellow and green letters (press enter if there are none): ")
     if yellow:
         for i in yellow:
             yellows.append(i)
@@ -91,12 +118,58 @@ def main():
         deleters = list(dict.fromkeys(deleters))
         for i in deleters:
             possible.remove(i)
+    yellow1 = input("\nInput yellow letter in position 1 (press enter if position 1 isn't yellow): ")
+    yellow2 = input("\nInput yellow letter in position 2 (press enter if position 2 isn't yellow): ")
+    yellow3 = input("\nInput yellow letter in position 3 (press enter if position 3 isn't yellow): ")
+    yellow4 = input("\nInput yellow letter in position 4 (press enter if position 4 isn't yellow): ")
+    yellow5 = input("\nInput yellow letter in position 5 (press enter if position 5 isn't yellow): ")
 
-    green1 = input("Input green letter in position 1 (press enter if position 1 isn't green): ")
-    green2 = input("Input green letter in position 2 (press enter if position 1 isn't green): ")
-    green3 = input("Input green letter in position 3 (press enter if position 1 isn't green): ")
-    green4 = input("Input green letter in position 4 (press enter if position 1 isn't green): ")
-    green5 = input("Input green letter in position 5 (press enter if position 1 isn't green): ")
+    if yellow1:
+        deleters = []
+        for i in possible:
+            if i[0] == yellow1:
+                deleters.append(i)
+        if deleters:
+            for i in deleters:
+                possible.remove(i)
+    if yellow2:
+        deleters = []
+        for i in possible:
+            if i[1] == yellow2:
+                deleters.append(i)
+        if deleters:
+            for i in deleters:
+                possible.remove(i)
+    if yellow3:
+        deleters = []
+        for i in possible:
+            if i[2] == yellow3:
+                deleters.append(i)
+        if deleters:
+            for i in deleters:
+                possible.remove(i)
+    if yellow4:
+        deleters = []
+        for i in possible:
+            if i[3] == yellow4:
+                deleters.append(i)
+        if deleters:
+            for i in deleters:
+                possible.remove(i)
+    if yellow5:
+        deleters = []
+        for i in possible:
+            if i[4] == yellow5:
+                deleters.append(i)
+        if deleters:
+            for i in deleters:
+                possible.remove(i)
+
+    green1 = input("\nInput green letter in position 1 (press enter if position 1 isn't green): ")
+    green2 = input("\nInput green letter in position 2 (press enter if position 1 isn't green): ")
+    green3 = input("\nInput green letter in position 3 (press enter if position 1 isn't green): ")
+    green4 = input("\nInput green letter in position 4 (press enter if position 1 isn't green): ")
+    green5 = input("\nInput green letter in position 5 (press enter if position 1 isn't green): ")
 
     if green1:
         deleters = []
@@ -138,8 +211,8 @@ def main():
         if deleters:
             for i in deleters:
                 possible.remove(i)
-    print('Including double letter words: ', findgood())
-    print('No double letter words: ', findgood2())
+    print('\nIncluding double letter words: ', findgood())
+    # print('No double letter words: ', findgood2())
 
     global solved
 
@@ -153,8 +226,9 @@ def main():
 
 solved = 'no'
 bubblesortpossible()
-print('Good starters including double letter words: ', findgood())
-print('Good starters excluding double letter words: ', findgood2())
+print('\nGood starters to find green letters: ', findgood())
+print('\nGood starters excluding any duplicate letters: ', findgood2())
+print('\nGood starter optimized for vowels: ', findgood3())
 while True:
     main()
     if solved == 'yes':
