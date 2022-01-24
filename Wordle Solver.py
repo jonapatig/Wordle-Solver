@@ -103,7 +103,7 @@ def main():
         for i in deleters:
             possible.remove(i)
 
-    grey = input("Input grey letters (press enter if there are none): ")
+    grey = input("\nInput grey letters (press enter if there are none): ")
     greys = []
 
     if grey:
@@ -166,10 +166,10 @@ def main():
                 possible.remove(i)
 
     green1 = input("\nInput green letter in position 1 (press enter if position 1 isn't green): ")
-    green2 = input("\nInput green letter in position 2 (press enter if position 1 isn't green): ")
-    green3 = input("\nInput green letter in position 3 (press enter if position 1 isn't green): ")
-    green4 = input("\nInput green letter in position 4 (press enter if position 1 isn't green): ")
-    green5 = input("\nInput green letter in position 5 (press enter if position 1 isn't green): ")
+    green2 = input("\nInput green letter in position 2 (press enter if position 2 isn't green): ")
+    green3 = input("\nInput green letter in position 3 (press enter if position 3 isn't green): ")
+    green4 = input("\nInput green letter in position 4 (press enter if position 4 isn't green): ")
+    green5 = input("\nInput green letter in position 5 (press enter if position 5 isn't green): ")
 
     if green1:
         deleters = []
