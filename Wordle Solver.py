@@ -222,16 +222,28 @@ def main():
 #_______________________________________________________________________________
 # CODE ON RUN:
 #_______________________________________________________________________________
-
-solved = 'no'
-bubblesortpossible()
-print('\nGood starters to find green letters: ', findgood())
-print('\nGood starters excluding any duplicate letters: ', findgood2())
-print('\nGood starter optimized for vowels: ', findgood3())
 while True:
-    main()
-    print('\nChance of success: ', (1/len(possible))*100,'%')
-    print("Solved?")
-    solved = input()
-    if solved == 'yes':
-        exit()
+    solved = 'no'
+    bubblesortpossible()
+    print('\nGood starters to find green letters: ', findgood())
+    print('\nGood starters excluding any duplicate letters: ', findgood2())
+    print('\nGood starter optimized for vowels: ', findgood3())
+    while True:
+        main()
+        bubblesortpossible()
+        print('\nChance of success: ', (1/len(possible))*100,'%')
+        print("Solved? (Type 'yes' to restart the program. Type 'exit' to quit the program)")
+        solved = input()
+        if solved == 'yes' or solved == 'exit':
+            print("\n\n\n\n\n\n\n\n\n\n\n\n")
+            break
+    try:
+        with open('C:/Users/Jona/Documents/5letterwords.txt', 'r') as f:
+            raw = f.read()
+    except:
+        with open('C:/Users/jonap/Documents/5letterwords.txt', 'r') as f:
+            raw = f.read()
+    possible = raw.splitlines()
+    if solved == 'exit':
+        break
+exit()
