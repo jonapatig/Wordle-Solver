@@ -30,21 +30,21 @@ def findgood():
 
 def findgood2():
     better = []
-    for i in reversed(possible):
+    for i in possible:
         stop = 0
         for l in i:
             if i.count(l) > 1:
                 stop = 1
         if stop == 0:
             better.append(i)
-        if len(better) > 10:
-            good2 = [better[0], better[1], better[2], better[3], better[4], better[5], better[6], better[7], better[8], better[9]]
-            # good2 = [better[-1], better[-2], better[-3], better[-4], better[-5], better[-6], better[-7], better[-8], better[-9], better[-10]]
+    if len(better) >= 10:
+        # good2 = [better[0], better[1], better[2], better[3], better[4], better[5], better[6], better[7], better[8], better[9]]
+        good2 = [better[-1], better[-2], better[-3], better[-4], better[-5], better[-6], better[-7], better[-8], better[-9], better[-10]]
+    else:
+        if not better:
+            good2 = ['No more words without duplicate letters']
         else:
-            if not better:
-                good2 = ['No more words without duplicate letters']
-            else:
-                good2 = reversed(better)
+            good2 = better
     return good2
 
 def findgood3():
@@ -235,7 +235,7 @@ while True:
         print("Solved? (Type 'yes' to restart the program. Type 'exit' to quit the program)")
         solved = input()
         if solved == 'yes' or solved == 'exit':
-            print("\n\n\n\n\n\n\n\n\n\n\n\n")
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             break
     try:
         with open('C:/Users/Jona/Documents/5letterwords.txt', 'r') as f:
