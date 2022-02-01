@@ -1,8 +1,8 @@
 try:
-    with open('C:/Users/Jona/Documents/5letterwords.txt', 'r') as f:
+    with open('C:/Users/Jona/github/Wordle-Solver/5letterwords.txt', 'r') as f:
         raw = f.read()
 except:
-    with open('C:/Users/jonap/Documents/5letterwords.txt', 'r') as f:
+    with open('C:/Users/jonap/github/Wordle-Solver/5letterwords.txt', 'r') as f:
         raw = f.read()
 
 possible = raw.splitlines()
@@ -49,25 +49,33 @@ def findgood2():
 
 def findgood3():
     global possible
-    possible2 = possible
-    vowelpoints = []
-    for i in possible2:
-        points = 0
-        vowellist = ['a','e','i','o','u']
-        for a in i:
-            if a in vowellist:
-                points += 1
-                vowellist.remove(a)
-        vowelpoints.append(points)
-    for x in range(0,len(vowelpoints)):
-        for i in range(0,(len(vowelpoints)-x)):
-            if not i == (len(vowelpoints)-1) and vowelpoints[i] > vowelpoints[i+1]:
-                temp = vowelpoints[i+1]
-                temp2 = possible2[i+1]
-                vowelpoints[i+1] = vowelpoints[i]
-                possible2[i+1] = possible2[i]
-                vowelpoints[i] = temp
-                possible2[i] = temp2
+    try:
+        with open('C:/Users/jonap/github/Wordle-Solver/5lettervowels.txt', 'r') as f:
+            vowelraw = f.read()
+    except:
+        with open('C:/Users/Jona/github/Wordle-Solver/5lettervowels.txt', 'r') as f:
+            vowelraw = f.read()
+    possible2 = vowelraw.splitlines()
+    if not possible2:
+        possible2 = possible
+        vowelpoints = []
+        for i in possible2:
+            points = 0
+            vowellist = ['a','e','i','o','u']
+            for a in i:
+                if a in vowellist:
+                    points += 1
+                    vowellist.remove(a)
+            vowelpoints.append(points)
+        for x in range(0,len(vowelpoints)):
+            for i in range(0,(len(vowelpoints)-x)):
+                if not i == (len(vowelpoints)-1) and vowelpoints[i] > vowelpoints[i+1]:
+                    temp = vowelpoints[i+1]
+                    temp2 = possible2[i+1]
+                    vowelpoints[i+1] = vowelpoints[i]
+                    possible2[i+1] = possible2[i]
+                    vowelpoints[i] = temp
+                    possible2[i] = temp2
     if len(possible2) > 10:
         good3 = [possible2[-1], possible2[-2], possible2[-3], possible2[-4], possible2[-5], possible2[-6], possible2[-7], possible2[-8], possible2[-9], possible2[-10]]
     else:
@@ -222,15 +230,18 @@ def main():
 #_______________________________________________________________________________
 # CODE ON RUN:
 #_______________________________________________________________________________
+startlen = len(possible)
 while True:
     solved = 'no'
-    bubblesortpossible()
+    if possible[0] != "yukky":
+        bubblesortpossible()
     print('\nGood starters to find green letters: ', findgood())
     print('\nGood starters excluding any duplicate letters: ', findgood2())
     print('\nGood starter optimized for vowels: ', findgood3())
     while True:
         main()
-        bubblesortpossible()
+        if len(possible) != startlen:
+            bubblesortpossible()
         print('\nChance of success: ', (1/len(possible))*100,'%')
         print("Solved? (Type 'yes' to restart the program. Type 'exit' to quit the program)")
         solved = input()
@@ -238,10 +249,10 @@ while True:
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             break
     try:
-        with open('C:/Users/Jona/Documents/5letterwords.txt', 'r') as f:
+        with open('C:/Users/jonap/github/Wordle-Solver/5letterwords.txt', 'r') as f:
             raw = f.read()
     except:
-        with open('C:/Users/jonap/Documents/5letterwords.txt', 'r') as f:
+        with open('C:/Users/Jona/github/Wordle-Solver/5letterwords.txt', 'r') as f:
             raw = f.read()
     possible = raw.splitlines()
     if solved == 'exit':

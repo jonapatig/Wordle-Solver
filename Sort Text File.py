@@ -1,6 +1,9 @@
-
-with open('C:/Users/Jona/Documents/5letterwords.txt', 'r') as f:
-    raw = f.read()
+try:
+    with open('C:/Users/jonap/github/Wordle-Solver/5letterwords.txt', 'r') as f:
+        raw = f.read()
+except:
+    with open('C:/Users/Jona/github/Wordle-Solver/5letterwords.txt', 'r') as f:
+        raw = f.read()
 
 possible = raw.splitlines()
 counts0 = {'a' : 0, 'b' : 0, 'c' : 0, 'd' : 0, 'e' : 0, 'f' : 0, 'g' : 0, 'h' : 0, 'i' : 0, 'j' : 0, 'k' : 0, 'l' : 0, 'm' : 0, 'n' : 0, 'o' : 0, 'p' : 0, 'q' : 0, 'r' : 0, 's' : 0, 't' : 0, 'u' : 0, 'v' : 0, 'w' : 0, 'x' : 0, 'y' : 0, 'z' : 0}
@@ -32,8 +35,52 @@ def bubblesortpossible():
                 possible[i] = temp2
 
 bubblesortpossible()
+if possible[0] != "yukky":
+    try:
+        with open('C:/Users/jonap/github/Wordle-Solver/5letterwords.txt', 'w') as e:
+            for i in possible:
+                e.write(i)
+                e.write("\n")
+    except:
+        with open('C:/Users/Jona/github/Wordle-Solver/5letterwords.txt', 'w') as e:
+            for i in possible:
+                e.write(i)
+                e.write("\n")
+try:
+    with open('C:/Users/jonap/github/Wordle-Solver/5lettervowels.txt', 'r') as f:
+        vowelraw = f.read()
+except:
+    with open('C:/Users/Jona/github/Wordle-Solver/5lettervowels.txt', 'r') as f:
+        vowelraw = f.read()
+possible2 = vowelraw.splitlines()
 
-with open('C:/Users/Jona/Documents/5letterwords.txt', 'w') as e:
-    for i in possible:
-        e.write(i)
-        e.write("\n")
+if not possible2:
+    possible2 = possible
+    vowelpoints = []
+    for i in possible2:
+        points = 0
+        vowellist = ['a','e','i','o','u']
+        for a in i:
+            if a in vowellist:
+                points += 1
+                vowellist.remove(a)
+        vowelpoints.append(points)
+    for x in range(0,len(vowelpoints)):
+        for i in range(0,(len(vowelpoints)-x)):
+            if not i == (len(vowelpoints)-1) and vowelpoints[i] > vowelpoints[i+1]:
+                temp = vowelpoints[i+1]
+                temp2 = possible2[i+1]
+                vowelpoints[i+1] = vowelpoints[i]
+                possible2[i+1] = possible2[i]
+                vowelpoints[i] = temp
+                possible2[i] = temp2
+    try:
+        with open('C:/Users/jonap/github/Wordle-Solver/5lettervowels.txt', 'w') as e:
+            for i in possible2:
+                e.write(i)
+                e.write("\n")
+    except:
+        with open('C:/Users/Jona/github/Wordle-Solver/5lettervowels.txt', 'w') as e:
+            for i in possible2:
+                e.write(i)
+                e.write("\n")
