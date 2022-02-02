@@ -258,5 +258,3 @@ while True:
     if solved == 'exit':
         break
 exit()
-
-fuck you fried
