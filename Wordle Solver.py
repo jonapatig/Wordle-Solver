@@ -1,3 +1,5 @@
+import tkinter as tk
+
 try:
     with open('C:/Users/Jona/github/Wordle-Solver/5letterwords.txt', 'r') as f:
         raw = f.read()
@@ -98,13 +100,59 @@ def bubblesortpossible():
                 possible[i] = temp2
 
 def main():
-    global possible
+    global possible, c1, c2, c3, c4, c5, input
     yellows = []
+    grey = ""
+    greys = []
+    yellow1, yellow2, yellow3, yellow4, yellow5 = "", "", "", "", ""
+    green1, green2, green3, green4, green5 = "", "", "", "", ""
+    #Declare all grey letters
+    if c1 == 0:
+        grey += input[0]
+    if c2 == 0:
+        grey += input[1]
+    if c3 == 0:
+        grey += input[2]
+    if c4 == 0:
+        grey += input[3]
+    if c5 == 0:
+        grey += input[4]
 
-    yellow = input("\nInput yellow and green letters (press enter if there are none): ")
-    if yellow:
-        for i in yellow:
-            yellows.append(i)
+    #Declare all yellow letters
+    if c1 == 1:
+        yellows.append(input[0])
+        yellow1 = input[0]
+    if c2 == 1:
+        yellows.append(input[1])
+        yellow2 = input[1]
+    if c3 == 1:
+        yellows.append(input[2])
+        yellow3 = input[2]
+    if c4 == 1:
+        yellows.append(input[3])
+        yellow4 = input[3]
+    if c5 == 1:
+        yellows.append(input[4])
+        yellow5 = input[4]
+
+    #Declare all green letters
+    if c1 == 2:
+        yellows.append(input[0])
+        green1 = input[0]
+    if c2 == 2:
+        yellows.append(input[1])
+        green2 = input[1]
+    if c3 == 2:
+        yellows.append(input[2])
+        green3 = input[2]
+    if c4 == 2:
+        yellows.append(input[3])
+        green4 = input[3]
+    if c5 == 2:
+        yellows.append(input[4])
+        green5 = input[4]
+
+    #Delete stuff from possible according to colors
     if yellows:
         deleters = []
         for letter in yellows:
@@ -114,28 +162,20 @@ def main():
         deleters = list(dict.fromkeys(deleters))
         for i in deleters:
             possible.remove(i)
-
-    grey = input("\nInput grey letters (press enter if there are none): ")
-    greys = []
-
     if grey:
         for i in grey:
             greys.append(i)
+    print(greys)
     if greys:
         deleters = []
         for letter in greys:
             for i in possible:
                 if letter in i:
-                    deleters.append(i)
+                    if not i.count(letter) > greys.count(letter): #If a letter appears twice in a guess, but only once in the word, program will no longer delete all options
+                        deleters.append(i)
         deleters = list(dict.fromkeys(deleters))
         for i in deleters:
             possible.remove(i)
-    yellow1 = input("\nInput yellow letter in position 1 (press enter if position 1 isn't yellow): ")
-    yellow2 = input("\nInput yellow letter in position 2 (press enter if position 2 isn't yellow): ")
-    yellow3 = input("\nInput yellow letter in position 3 (press enter if position 3 isn't yellow): ")
-    yellow4 = input("\nInput yellow letter in position 4 (press enter if position 4 isn't yellow): ")
-    yellow5 = input("\nInput yellow letter in position 5 (press enter if position 5 isn't yellow): ")
-
     if yellow1:
         deleters = []
         for i in possible:
@@ -177,12 +217,6 @@ def main():
             for i in deleters:
                 possible.remove(i)
 
-    green1 = input("\nInput green letter in position 1 (press enter if position 1 isn't green): ")
-    green2 = input("\nInput green letter in position 2 (press enter if position 2 isn't green): ")
-    green3 = input("\nInput green letter in position 3 (press enter if position 3 isn't green): ")
-    green4 = input("\nInput green letter in position 4 (press enter if position 4 isn't green): ")
-    green5 = input("\nInput green letter in position 5 (press enter if position 5 isn't green): ")
-
     if green1:
         deleters = []
         for i in possible:
@@ -223,31 +257,175 @@ def main():
         if deleters:
             for i in deleters:
                 possible.remove(i)
-    print('\nIncluding double letter words: ', findgood())
-    print('\nNo duplicate letter words: ', findgood2())
-
-
 #_______________________________________________________________________________
-# CODE ON RUN:
+#SET UP GUI STUFF
 #_______________________________________________________________________________
-startlen = len(possible)
-while True:
-    solved = 'no'
-    if possible[0] != "yukky":
+def changecolor1():
+    global c1, ting1, button1
+    c1 += 1
+    if c1 == 3:
+        c1 = 0
+    button1['text'] = ting1
+    button1['bg'] = colors[c1]
+    button1['activebackground'] = colors[c1]
+
+def changecolor2():
+    global c2, ting2, button2
+    c2 += 1
+    if c2 == 3:
+        c2 = 0
+    button2['text'] = ting2
+    button2['bg'] = colors[c2]
+    button2['activebackground'] = colors[c2]
+
+def changecolor3():
+    global c3, ting3, button3
+    c3 += 1
+    if c3 == 3:
+        c3 = 0
+    button3['text'] = ting3
+    button3['bg'] = colors[c3]
+    button3['activebackground'] = colors[c3]
+
+def changecolor4():
+    global c4, ting4, button4
+    c4 += 1
+    if c4 == 3:
+        c4 = 0
+    button4['text'] = ting4
+    button4['bg'] = colors[c4]
+    button4['activebackground'] = colors[c4]
+
+def changecolor5():
+    global c5, ting5, button5
+    c5 += 1
+    if c5 == 3:
+        c5 = 0
+    button5['text'] = ting5
+    button5['bg'] = colors[c5]
+    button5['activebackground'] = colors[c5]
+
+def submit():
+    global window, suggestedwindow
+    window.destroy()
+    suggestedwindow()
+
+def submit2():
+    global input, window2
+    rawinput = wordinput.get()
+    if not rawinput:
+        input = "lover"
+    else:
+        input = rawinput[0:5]
+    window2.destroy()
+    wordcolors()
+
+def submit3():
+    global window3, selectword
+    window3.destroy()
+    selectword()
+
+def selectword():
+    global wordinput, window2, startlen, possible, starting
+    window2 = tk.Tk()
+    startlen = len(possible)
+    if starting == 1:
+        window2.geometry('800x150+560+400')
+    else:
+        window2.geometry('400x150+760+400')
+    window2.title('Suggested Guess')
+    wordinput = tk.Entry(window2, width=10, bg="white")
+    submitbutton2 = tk.Button(window2, text = "Submit", command=submit2)
+    submitbutton2.place(relx=0.5,rely=0.8,anchor="center")
+    if starting == 1:
+        wordinput.place(relx=0.5,rely=0.55,anchor="center")
+    else:
+        wordinput.place(relx=0.5,rely=0.4,anchor="center")
+    if starting == 1:
+        starting = 0
+        gd2 = findgood2()
+        gd3 = findgood3()
+        gdstart = "Good starters excluding duplicate letters: "
+        for i in gd2:
+            gdstart += i + ", "
+        gdstart = gdstart[:-2]
+        gdstart+="."
+        gdstart += "\n\nStarters optimized for vowels: "
+        for i in gd3:
+            gdstart += i + ", "
+        gdstart = gdstart[:-2]
+        gdstart+="."
+        goodstarters = tk.Label(window2, text = gdstart)
+        goodstarters.place(relx=0.5,rely=0.25,anchor="center")
+    window2.mainloop()
+
+def wordcolors():
+    global ting1, ting2, ting3, ting4, ting5, button1, button2, button3, button4, button5, colors, input, c1, c2, c3, c4, c5, window
+    window = tk.Tk()
+    window.geometry('400x150+760+400')
+    window.title('Worlde Output')
+    c1,c2,c3,c4,c5 = 0,0,0,0,0
+    colors = ["grey", "yellow", "green2"]
+    ting1 = input[0]
+    ting2 = input[1]
+    ting3 = input[2]
+    ting4 = input[3]
+    ting5 = input[4]
+    button1 = tk.Button(window, text = ting1, bg=colors[c1], command=changecolor1, activebackground = colors[c1])
+    button2 = tk.Button(window, text = ting2, bg=colors[c2], command=changecolor2, activebackground = colors[c2])
+    button3 = tk.Button(window, text = ting3, bg=colors[c3], command=changecolor3, activebackground = colors[c3])
+    button4 = tk.Button(window, text = ting4, bg=colors[c4], command=changecolor4, activebackground = colors[c4])
+    button5 = tk.Button(window, text = ting5, bg=colors[c5], command=changecolor5, activebackground = colors[c5])
+    submitbutton = tk.Button(window, text = "Submit", command = submit)
+    button1.place(relx=.40, rely=.5, anchor="center")
+    button2.place(relx=.45, rely=.5, anchor="center")
+    button3.place(relx=.50, rely=.5, anchor="center")
+    button4.place(relx=.55, rely=.5, anchor="center")
+    button5.place(relx=.60, rely=.5, anchor="center")
+    submitbutton.place(relx=.5, rely=0.9, anchor="center")
+    window.mainloop()
+
+def suggestedwindow():
+    global findgood, findgood2, findgood3, main, submit3, window3, bubblesortpossible, startlen, possible
+    if not startlen == len(possible):
         bubblesortpossible()
-    print('\nGood starters to find green letters: ', findgood())
-    print('\nGood starters excluding any duplicate letters: ', findgood2())
-    print('\nGood starter optimized for vowels: ', findgood3())
-    while True:
-        main()
-        if len(possible) != startlen:
-            bubblesortpossible()
-        print('\nChance of success: ', (1/len(possible))*100,'%')
-        print("Solved? (Type 'yes' to restart the program. Type 'exit' to quit the program)")
-        solved = input()
-        if solved == 'yes' or solved == 'exit':
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            break
+    main()
+    startlen = len(possible)
+    window3 = tk.Tk()
+    window3.geometry('800x150+560+400')
+    window3.title('Suggested Attempts')
+    if len(possible) > 0:
+        gd1 = findgood()
+        gd2 = findgood2()
+        gd = "Try (including duplicate letters included): "
+        for i in gd1:
+            gd += i + ", "
+        gd = gd[:-2]
+        gd+="."
+        gd += "\n\nTry (excluding duplicate letters): "
+        for i in gd2:
+            gd += i + ", "
+        gd = gd[:-2]
+        gd+="."
+        gd+="\n\nChance of success: "+str((1/len(possible))*100)+"%"
+    else:
+        gd="\n\n\n\nYou input something wrong. You're dumb."
+    goodtext = tk.Label(window3, text = gd)
+    submitbutton3 = tk.Button(window3, text = "Continue", command = submit3)
+    exitbutton = tk.Button(window3, text = "Done", command = quit)
+    restartbutton = tk.Button(window3, text = "Restart", command = restart)
+    goodtext.pack()
+    submitbutton3.place(relx = .5, rely = 0.9, anchor = "center")
+    exitbutton.place(relx = .4, rely = 0.9, anchor = "center")
+    restartbutton.place(relx = .6, rely = 0.9, anchor = "center")
+
+def quit():
+    global window3
+    window3.destroy()
+    exit()
+
+def restart():
+    global raw, window3, possible, startlen, starting
     try:
         with open('C:/Users/jonap/github/Wordle-Solver/5letterwords.txt', 'r') as f:
             raw = f.read()
@@ -255,6 +433,12 @@ while True:
         with open('C:/Users/Jona/github/Wordle-Solver/5letterwords.txt', 'r') as f:
             raw = f.read()
     possible = raw.splitlines()
-    if solved == 'exit':
-        break
-exit()
+    window3.destroy()
+    selectword()
+    starting = 1
+
+#_______________________________________________________________________________
+# CODE ON RUN:
+#_______________________________________________________________________________
+starting = 1
+selectword()
