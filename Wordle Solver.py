@@ -81,6 +81,7 @@ def findgood3():
         good3 = reversed(possible2)
     return good3
 def bubblesortpossible():
+    global yellows
     sortedweights = []
     for i in possible:
         weight = 0
@@ -105,7 +106,7 @@ def bubblesortpossible():
                 sortedweights[i] = temp
                 possible[i] = temp2
 def main():
-    global possible, c1, c2, c3, c4, c5, input
+    global possible, c1, c2, c3, c4, c5, input, yellows
     yellows = []
     grey = ""
     greys = []
@@ -384,9 +385,9 @@ def wordcolors():
     window.mainloop()
 def suggestedwindow():
     global findgood, findgood2, findgood3, main, submit3, window3, bubblesortpossible, startlen, possible
+    main()
     if not startlen == len(possible):
         bubblesortpossible()
-    main()
     startlen = len(possible)
     window3 = tk.Tk()
     window3.geometry('800x150+560+400')
