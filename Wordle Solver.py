@@ -83,7 +83,17 @@ def findgood3():
 def bubblesortpossible():
     sortedweights = []
     for i in possible:
-        weight = counts0[i[0]] + counts1[i[1]] + counts2[i[2]] + counts3[i[3]] + counts4[i[4]]
+        weight = 0
+        if not i[0] in yellows:
+            weight += counts0[i[0]]
+        if not i[1] in yellows:
+            weight += counts1[i[1]]
+        if not i[2] in yellows:
+            weight += counts2[i[2]]
+        if not i[3] in yellows:
+            weight += counts3[i[3]]
+        if not i[4] in yellows:
+            weight += counts4[i[4]]
         sortedweights.append(weight)
     for x in range(0,len(sortedweights)):
         for i in range(0,(len(sortedweights)-x)):
@@ -101,6 +111,7 @@ def main():
     greys = []
     yellow1, yellow2, yellow3, yellow4, yellow5 = "", "", "", "", ""
     green1, green2, green3, green4, green5 = "", "", "", "", ""
+
     #Declare all grey letters
     if c1 == 0:
         grey += input[0]
@@ -420,8 +431,8 @@ def restart():
             raw = f.read()
     possible = raw.splitlines()
     window3.destroy()
-    selectword()
     starting = 1
+    selectword()
 
 #_______________________________________________________________________________
 # CODE ON RUN:
