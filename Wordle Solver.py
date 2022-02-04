@@ -21,7 +21,6 @@ for i in possible:
     counts2[i[2]]=counts0[i[2]]+1
     counts3[i[3]]=counts0[i[3]]+1
     counts4[i[4]]=counts0[i[4]]+1
-
 def findgood():
     global possible
     if len(possible) > 10:
@@ -29,7 +28,6 @@ def findgood():
     else:
         good = possible
     return good
-
 def findgood2():
     better = []
     for i in possible:
@@ -48,7 +46,6 @@ def findgood2():
         else:
             good2 = better
     return good2
-
 def findgood3():
     global possible
     try:
@@ -83,7 +80,6 @@ def findgood3():
     else:
         good3 = reversed(possible2)
     return good3
-
 def bubblesortpossible():
     sortedweights = []
     for i in possible:
@@ -98,7 +94,6 @@ def bubblesortpossible():
                 possible[i+1] = possible[i]
                 sortedweights[i] = temp
                 possible[i] = temp2
-
 def main():
     global possible, c1, c2, c3, c4, c5, input
     yellows = []
@@ -165,7 +160,6 @@ def main():
     if grey:
         for i in grey:
             greys.append(i)
-    print(greys)
     if greys:
         deleters = []
         for letter in greys:
@@ -268,7 +262,6 @@ def changecolor1():
     button1['text'] = ting1
     button1['bg'] = colors[c1]
     button1['activebackground'] = colors[c1]
-
 def changecolor2():
     global c2, ting2, button2
     c2 += 1
@@ -277,7 +270,6 @@ def changecolor2():
     button2['text'] = ting2
     button2['bg'] = colors[c2]
     button2['activebackground'] = colors[c2]
-
 def changecolor3():
     global c3, ting3, button3
     c3 += 1
@@ -286,7 +278,6 @@ def changecolor3():
     button3['text'] = ting3
     button3['bg'] = colors[c3]
     button3['activebackground'] = colors[c3]
-
 def changecolor4():
     global c4, ting4, button4
     c4 += 1
@@ -295,7 +286,6 @@ def changecolor4():
     button4['text'] = ting4
     button4['bg'] = colors[c4]
     button4['activebackground'] = colors[c4]
-
 def changecolor5():
     global c5, ting5, button5
     c5 += 1
@@ -304,27 +294,23 @@ def changecolor5():
     button5['text'] = ting5
     button5['bg'] = colors[c5]
     button5['activebackground'] = colors[c5]
-
 def submit():
     global window, suggestedwindow
     window.destroy()
     suggestedwindow()
-
 def submit2():
     global input, window2
     rawinput = wordinput.get()
-    if not rawinput:
+    if not rawinput or len(rawinput) < 5:
         input = "lover"
     else:
         input = rawinput[0:5]
     window2.destroy()
     wordcolors()
-
 def submit3():
     global window3, selectword
     window3.destroy()
     selectword()
-
 def selectword():
     global wordinput, window2, startlen, possible, starting
     window2 = tk.Tk()
@@ -357,8 +343,8 @@ def selectword():
         gdstart+="."
         goodstarters = tk.Label(window2, text = gdstart)
         goodstarters.place(relx=0.5,rely=0.25,anchor="center")
+    window2.attributes('-topmost', True)
     window2.mainloop()
-
 def wordcolors():
     global ting1, ting2, ting3, ting4, ting5, button1, button2, button3, button4, button5, colors, input, c1, c2, c3, c4, c5, window
     window = tk.Tk()
@@ -383,8 +369,8 @@ def wordcolors():
     button4.place(relx=.55, rely=.5, anchor="center")
     button5.place(relx=.60, rely=.5, anchor="center")
     submitbutton.place(relx=.5, rely=0.9, anchor="center")
+    window.attributes('-topmost', True)
     window.mainloop()
-
 def suggestedwindow():
     global findgood, findgood2, findgood3, main, submit3, window3, bubblesortpossible, startlen, possible
     if not startlen == len(possible):
@@ -418,12 +404,12 @@ def suggestedwindow():
     submitbutton3.place(relx = .5, rely = 0.9, anchor = "center")
     exitbutton.place(relx = .4, rely = 0.9, anchor = "center")
     restartbutton.place(relx = .6, rely = 0.9, anchor = "center")
-
+    window3.attributes('-topmost', True)
+    window3.mainloop()
 def quit():
     global window3
     window3.destroy()
     exit()
-
 def restart():
     global raw, window3, possible, startlen, starting
     try:
