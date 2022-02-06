@@ -1,11 +1,10 @@
 import tkinter as tk
+import os
 
-try:
-    with open('C:/Users/Jona/github/Wordle-Solver/5letterwords.txt', 'r') as f:
-        raw = f.read()
-except:
-    with open('C:/Users/jonap/github/Wordle-Solver/5letterwords.txt', 'r') as f:
-        raw = f.read()
+print(os.getcwd())
+
+with open('5letterwords.txt', 'r') as f:
+    raw = f.read()
 
 possible = raw.splitlines()
 
@@ -38,7 +37,6 @@ def findgood2():
         if stop == 0:
             better.append(i)
     if len(better) >= 10:
-        # good2 = [better[0], better[1], better[2], better[3], better[4], better[5], better[6], better[7], better[8], better[9]]
         good2 = [better[-1], better[-2], better[-3], better[-4], better[-5], better[-6], better[-7], better[-8], better[-9], better[-10]]
     else:
         if not better:
@@ -48,12 +46,8 @@ def findgood2():
     return good2
 def findgood3():
     global possible
-    try:
-        with open('C:/Users/jonap/github/Wordle-Solver/5lettervowels.txt', 'r') as f:
-            vowelraw = f.read()
-    except:
-        with open('C:/Users/Jona/github/Wordle-Solver/5lettervowels.txt', 'r') as f:
-            vowelraw = f.read()
+    with open('5lettervowels.txt', 'r') as f:
+        vowelraw = f.read()
     possible2 = vowelraw.splitlines()
     if not possible2:
         possible2 = possible
@@ -424,17 +418,12 @@ def quit():
     exit()
 def restart():
     global raw, window3, possible, startlen, starting
-    try:
-        with open('C:/Users/jonap/github/Wordle-Solver/5letterwords.txt', 'r') as f:
-            raw = f.read()
-    except:
-        with open('C:/Users/Jona/github/Wordle-Solver/5letterwords.txt', 'r') as f:
-            raw = f.read()
+    with open('5letterwords.txt', 'r') as f:
+        raw = f.read()
     possible = raw.splitlines()
     window3.destroy()
     starting = 1
     selectword()
-
 #_______________________________________________________________________________
 # CODE ON RUN:
 #_______________________________________________________________________________
