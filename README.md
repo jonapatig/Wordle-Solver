@@ -3,7 +3,7 @@ This is a program I made for fun after finding out about the viral word game wor
 eliminate the most words from the remaining list.
 
 # How to use it
-As long as both text files are present in the same folder as the wordle solver.py file, and python3 is installed, the program will run. 
+As long as both text files are present in the same folder as the wordle solver.py file, and python3 and tkinter are installed, the program will run. 
 
 More words can be added to the 5letterwords text file. Running the sorting script will bubble sort the file and add to the vowel file before the program is run,
 in order to make the startup time nearly instant. As of now, only possible solutions (taken directly from the wordle source code) are listed in the 5letterwords
