@@ -1,8 +1,6 @@
 import tkinter as tk
 import os
 
-print(os.getcwd())
-
 with open('5letterwords.txt', 'r') as f:
     raw = f.read()
 
@@ -25,7 +23,10 @@ def findgood():
     if len(possible) > 10:
         good = [possible[-1],possible[-2],possible[-3],possible[-4],possible[-5],possible[-6],possible[-7], possible[-8],possible[-9], possible[-10]]
     else:
-        good = possible
+        if not possible:
+            good = ["No more words left. You did something wrong."]
+        else:
+            good = reversed(possible)
     return good
 def findgood2():
     better = []
@@ -38,11 +39,11 @@ def findgood2():
             better.append(i)
     if len(better) >= 10:
         good2 = [better[-1], better[-2], better[-3], better[-4], better[-5], better[-6], better[-7], better[-8], better[-9], better[-10]]
-    else:
+    elif len(better) < 10:
         if not better:
             good2 = ['No more words without duplicate letters']
         else:
-            good2 = better
+            good2 = reversed(possible)
     return good2
 def findgood3():
     global possible
