@@ -43,7 +43,7 @@ def findgood2():
         if not better:
             good2 = ['No more words without duplicate letters']
         else:
-            good2 = reversed(possible)
+            good2 = reversed(better)
     return good2
 def findgood3():
     global possible
@@ -168,7 +168,7 @@ def main():
         for i in grey:
             greys.append(i)
         for k in range(0,5):
-            if input[k] in greys:
+            if input[k] in greys and input[k] in yellows:
                 greys.remove(input[k])
     if greys:
         deleters = []
