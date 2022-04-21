@@ -167,6 +167,9 @@ def main():
     if grey:
         for i in grey:
             greys.append(i)
+        # for k in range(0,5):
+        #     if input[k] in greys:
+        #         greys.remove(input[k])
     if greys:
         deleters = []
         for letter in greys:
